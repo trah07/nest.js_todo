@@ -91,3 +91,25 @@ h1 {
   text-decoration: line-through;
   color: #bbb;
 }
+
+.todo-list ul li {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.todo-list ul li .delete-button {
+  display: none;
+  position: absolute;
+  right: 10px;
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.todo-list ul li:hover .delete-button {
+  display: inline-block;
+}

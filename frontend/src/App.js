@@ -31,9 +31,37 @@ const TOGGLE_TODO_COMPLETED = gql`
   }
 `;
 
+const DELETE_TODO = gql`
+  mutation DeleteTodo($id: String!) {
+    deleteTodo(id: $id) {
+      id
+    }
+  }
+`;
+
+const UPDATE_TODO = gql`
+  mutation UpdateTodo($id: String!, $title: String, $completed: Boolean) {
+    updateTodo(input: { id: $id, title: $title, completed: $completed }) {
+      id
+      title
+      completed
+    }
+  }
+`;
+
 const TODO_CREATED = gql`
   subscription TodoCreated {
     todoCreated {
+      id
+      title
+      completed
+    }
+  }
+`;
+
+const TODO_UPDATED = gql`
+  subscription TodoUpdated {
+    todoUpdated {
       id
       title
       completed
@@ -48,16 +76,29 @@ function App() {
   const { data, loading, error } = useQuery(GET_TODOS);
   const [createTodo] = useMutation(CREATE_TODO);
   const [toggleTodoCompleted] = useMutation(TOGGLE_TODO_COMPLETED);
+  const [deleteTodo] = useMutation(DELETE_TODO);
+  const [updateTodo] = useMutation(UPDATE_TODO);
 
   const { data: todoCreated } = useSubscription(TODO_CREATED);
+  const { data: todoUpdated } = useSubscription(TODO_UPDATED);
 
-  console.log(todoCreated);
   useEffect(() => {
     if (todoCreated) {
       const newTodo = todoCreated.todoCreated;
       setTodos((prevTodos) => [...prevTodos, newTodo]);
     }
   }, [todoCreated]);
+
+  useEffect(() => {
+    if (todoUpdated) {
+      const updatedTodo = todoUpdated.todoUpdated;
+      setTodos((prevTodos) =>
+        prevTodos.map((todo) =>
+          todo.id === updatedTodo.id ? updatedTodo : todo
+        )
+      );
+    }
+  }, [todoUpdated]);
 
   useEffect(() => {
     if (data) {
@@ -97,7 +138,7 @@ function App() {
     }
   };
 
-  const handleTodoCompleted = (id, title) => {
+  const handleTodoCompleted = (id) => {
     toggleTodoCompleted({
       variables: { id },
       optimisticResponse: {
@@ -105,8 +146,40 @@ function App() {
         toggleTodoCompleted: {
           __typename: "Todo",
           id,
-          title,
+          title: todos.find((todo) => todo.id === id).title,
           completed: !todos.find((todo) => todo.id === id).completed,
+        },
+      },
+    });
+  };
+
+  const handleDeleteTodo = (id) => {
+    deleteTodo({
+      variables: { id },
+      update: (cache) => {
+        cache.modify({
+          fields: {
+            getTodos(existingTodos = [], { readField }) {
+              return existingTodos.filter(
+                (todoRef) => readField("id", todoRef) !== id
+              );
+            },
+          },
+        });
+      },
+    });
+  };
+
+  const handleUpdateTodo = (id, newTitle) => {
+    updateTodo({
+      variables: { id, title: newTitle },
+      optimisticResponse: {
+        __typename: "Mutation",
+        updateTodo: {
+          __typename: "Todo",
+          id,
+          title: newTitle,
+          completed: todos.find((todo) => todo.id === id).completed,
         },
       },
     });
@@ -139,6 +212,12 @@ function App() {
                   }}
                 />
                 <span>{todo.title}</span>
+                <button
+                  className="delete-button"
+                  onClick={() => handleDeleteTodo(todo.id)}
+                >
+                  Delete
+                </button>
               </li>
             ))
           ) : (
