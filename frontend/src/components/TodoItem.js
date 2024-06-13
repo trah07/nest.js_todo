@@ -1,8 +1,9 @@
 import React from "react";
 import { useMutation } from "@apollo/client";
+import { Link } from "react-router-dom";
 import { TOGGLE_TODO_COMPLETED, DELETE_TODO } from "../graphql";
 
-function TodoItem({ todo }) {
+const TodoItem = ({ todo }) => {
   const [toggleTodoCompleted] = useMutation(TOGGLE_TODO_COMPLETED);
   const [deleteTodo] = useMutation(DELETE_TODO);
 
@@ -40,20 +41,27 @@ function TodoItem({ todo }) {
 
   return (
     <li className={todo.completed ? "completed" : ""}>
-      <input
-        type="checkbox"
-        checked={todo.completed}
-        onChange={() => handleTodoCompleted(todo.id)}
-      />
-      <span>{todo.title}</span>
-      <button
-        className="delete-button"
-        onClick={() => handleDeleteTodo(todo.id)}
-      >
-        Delete
-      </button>
+      <div className="todo-content">
+        <input
+          type="checkbox"
+          checked={todo.completed}
+          onChange={() => handleTodoCompleted(todo.id)}
+        />
+        <span>{todo.title}</span>
+      </div>
+      <div className="button-group">
+        <Link to={`/todos/${todo.id}`} className="todo-button details-button">
+          Details
+        </Link>
+        <button
+          className="todo-button delete-button"
+          onClick={() => handleDeleteTodo(todo.id)}
+        >
+          Delete
+        </button>
+      </div>
     </li>
   );
-}
+};
 
 export default TodoItem;

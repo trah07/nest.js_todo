@@ -9,3 +9,13 @@ export const GET_TODOS = gql`
     }
   }
 `;
+
+export const GET_TODO = gql`
+  query GetTodo($id: String!) {
+    getTodo(id: $id) {
+      id
+      title
+      completed
+    }
+  }
+`;

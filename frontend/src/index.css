@@ -1,11 +1,9 @@
-/* Universal reset */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Set up basic styles for the todo list */
 body {
   font-family: Arial, sans-serif;
   color: #444;
@@ -37,7 +35,7 @@ h1 {
   border-radius: 5px;
   border: none;
   margin-right: 10px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .todo-form button {
@@ -61,55 +59,122 @@ h1 {
   padding: 20px;
   background-color: #fff;
   border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .todo-list li {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   padding: 15px;
   border-bottom: 1px solid #eee;
+  position: relative;
 }
 
 .todo-list li:last-child {
   border-bottom: none;
 }
 
-.todo-list li span {
-  margin-left: 10px;
-}
-
-.todo-list li.completed span {
-  text-decoration: line-through;
-  color: #bbb;
-}
-
-.todo-list ul li {
-  position: relative;
+.todo-list li .todo-content {
   display: flex;
   align-items: center;
 }
 
-.todo-list ul li .delete-button {
-  display: none;
-  position: absolute;
-  right: 10px;
-  background-color: red;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  cursor: pointer;
-  border-radius: 4px;
+.todo-list li .todo-content span {
+  margin-left: 10px;
 }
 
-.todo-list ul li:hover .delete-button {
-  display: inline-block;
+.todo-list li.completed .todo-content span {
+  text-decoration: line-through;
+  color: #bbb;
+}
+
+.todo-list ul li .button-group {
+  display: flex;
+  visibility: hidden;
+}
+
+.todo-list ul li:hover .button-group {
+  visibility: visible;
+}
+
+.todo-button {
+  padding: 5px 10px;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  color: white;
+  text-decoration: none;
+  text-align: center;
+  margin-left: 5px;
+}
+
+.delete-button {
+  background-color: red;
+}
+
+.delete-button:hover {
+  background-color: darkred;
+}
+
+.details-button {
+  background-color: blue;
+}
+
+.details-button:hover {
+  background-color: darkblue;
 }
 
 .error-message {
   color: red;
   text-align: center;
   margin-top: 10px;
-  margin-bottom: 10px;
   font-weight: bold;
+  padding: 10px;
+  background-color: #ffe5e5;
+  border: 1px solid red;
+  border-radius: 5px;
+  width: 100%;
+  max-width: 500px;
+}
+
+/* New styles for TodoItemDetails */
+.todo-details-container {
+  max-width: 500px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.todo-details {
+  padding: 10px;
+}
+
+.todo-details p {
+  margin: 10px 0;
+  font-size: 16px;
+}
+
+.todo-details strong {
+  font-weight: bold;
+}
+
+.back-button {
+  display: inline-block;
+  padding: 10px 15px;
+  margin-top: 20px;
+  font-size: 16px;
+  background-color: #4CAF50;
+  color: white;
+  text-decoration: none;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.back-button:hover {
+  background-color: #3E8E41;
 }

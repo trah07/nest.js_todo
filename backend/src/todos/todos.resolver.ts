@@ -5,13 +5,18 @@ import { CreateTodoInput, UpdateTodoInput } from "./todo.dto";
 
 const pubSub = new PubSub();
 
-@Resolver()
+@Resolver(() => Todo)
 export class TodosResolver {
-  todos = [];
+  todos: Todo[] = [];
 
   @Query(() => [Todo])
   getTodos() {
     return this.todos;
+  }
+
+  @Query(() => Todo, { nullable: true })
+  getTodo(@Args("id") id: string) {
+    return this.todos.find((todo) => todo.id === id);
   }
 
   @Mutation(() => Todo)
