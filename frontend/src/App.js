@@ -31,6 +31,14 @@ const TOGGLE_TODO_COMPLETED = gql`
   }
 `;
 
+const DELETE_TODO = gql`
+  mutation DeleteTodo($id: String!) {
+    deleteTodo(id: $id) {
+      id
+    }
+  }
+`;
+
 const TODO_CREATED = gql`
   subscription TodoCreated {
     todoCreated {
@@ -48,10 +56,10 @@ function App() {
   const { data, loading, error } = useQuery(GET_TODOS);
   const [createTodo] = useMutation(CREATE_TODO);
   const [toggleTodoCompleted] = useMutation(TOGGLE_TODO_COMPLETED);
+  const [deleteTodo] = useMutation(DELETE_TODO);
 
   const { data: todoCreated } = useSubscription(TODO_CREATED);
 
-  console.log(todoCreated);
   useEffect(() => {
     if (todoCreated) {
       const newTodo = todoCreated.todoCreated;
@@ -112,6 +120,23 @@ function App() {
     });
   };
 
+  const handleDeleteTodo = (id) => {
+    deleteTodo({
+      variables: { id },
+      update: (cache) => {
+        cache.modify({
+          fields: {
+            getTodos(existingTodos = [], { readField }) {
+              return existingTodos.filter(
+                (todoRef) => readField("id", todoRef) !== id
+              );
+            },
+          },
+        });
+      },
+    });
+  };
+
   return (
     <>
       <div className="todo-form">
@@ -139,6 +164,12 @@ function App() {
                   }}
                 />
                 <span>{todo.title}</span>
+                <button
+                  className="delete-button"
+                  onClick={() => handleDeleteTodo(todo.id)}
+                >
+                  Delete
+                </button>
               </li>
             ))
           ) : (
