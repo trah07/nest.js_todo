@@ -55,19 +55,11 @@ A simple Todo App to create, manage, and view tasks. The app includes features t
 ## Technologies Used
 
 ### Backend
-- **Nest.js**: A progressive Node.js framework for building efficient, reliable, and scalable server-side applications.
-- **GraphQL**: A query language for your API, and a server-side runtime for executing queries by using a type system you define for your data.
+- **Nest.js**
+- **GraphQL**
 
 ### Frontend
-- **React.js**: A JavaScript library for building user interfaces.
-
-## Contributing
-
-1. Fork the repository.
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`).
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`).
-4. Push to the branch (`git push origin feature/AmazingFeature`).
-5. Open a pull request.
+- **React.js**
 
 ## License
 
