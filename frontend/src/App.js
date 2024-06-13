@@ -72,6 +72,7 @@ const TODO_UPDATED = gql`
 function App() {
   const [title, setTitle] = useState("");
   const [todos, setTodos] = useState([]);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   const { data, loading, error } = useQuery(GET_TODOS);
   const [createTodo] = useMutation(CREATE_TODO);
@@ -111,31 +112,34 @@ function App() {
 
   const handleCreateTodo = (e) => {
     e.preventDefault();
-    if (title) {
-      createTodo({
-        variables: { title: title },
-        update: (cache, { data: { createTodo: todo } }) => {
-          cache.modify({
-            fields: {
-              getTodos(existingTodos = []) {
-                const newTodoRef = cache.writeFragment({
-                  data: todo,
-                  fragment: gql`
-                    fragment NewTodo on Todo {
-                      id
-                      title
-                      completed
-                    }
-                  `,
-                });
-                return [...existingTodos, newTodoRef];
-              },
-            },
-          });
-        },
-      });
-      setTitle("");
+    if (title.trim() === "") {
+      setErrorMessage("Title cannot be empty");
+      return;
     }
+    setErrorMessage(null);
+    createTodo({
+      variables: { title: title },
+      update: (cache, { data: { createTodo: todo } }) => {
+        cache.modify({
+          fields: {
+            getTodos(existingTodos = []) {
+              const newTodoRef = cache.writeFragment({
+                data: todo,
+                fragment: gql`
+                  fragment NewTodo on Todo {
+                    id
+                    title
+                    completed
+                  }
+                `,
+              });
+              return [...existingTodos, newTodoRef];
+            },
+          },
+        });
+      },
+    });
+    setTitle("");
   };
 
   const handleTodoCompleted = (id) => {
@@ -197,6 +201,7 @@ function App() {
           />
           <button type="submit">Add</button>
         </form>
+        {errorMessage && <p className="error-message">{errorMessage}</p>}
       </div>
       <div className="todo-list">
         <h2>Todos</h2>
@@ -207,11 +212,13 @@ function App() {
                 <input
                   type="checkbox"
                   checked={todo.completed}
-                  onChange={() => {
-                    handleTodoCompleted(todo.id, todo.title);
-                  }}
+                  onChange={() => handleTodoCompleted(todo.id)}
                 />
-                <span>{todo.title}</span>
+                <input
+                  type="text"
+                  value={todo.title}
+                  onChange={(e) => handleUpdateTodo(todo.id, e.target.value)}
+                />
                 <button
                   className="delete-button"
                   onClick={() => handleDeleteTodo(todo.id)}

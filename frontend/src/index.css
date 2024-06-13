@@ -1,18 +1,4 @@
-/* body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-} */
-
-
+/* Universal reset */
 * {
   margin: 0;
   padding: 0;
@@ -34,8 +20,14 @@ h1 {
 
 .todo-form {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   margin-bottom: 20px;
+}
+
+.todo-form form {
+  display: flex;
+  align-items: center;
 }
 
 .todo-form input[type="text"] {
@@ -112,4 +104,11 @@ h1 {
 
 .todo-list ul li:hover .delete-button {
   display: inline-block;
+}
+
+.error-message {
+  color: red;
+  text-align: center;
+  margin-top: 10px;
+  font-weight: bold;
 }
