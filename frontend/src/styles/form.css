@@ -35,6 +35,15 @@
   margin-top: 10px;
 }
 
+.update-option {
+  margin-left: 10px;
+  width: auto;
+  padding: 5px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
 .update-input {
   width: calc(100% - 20px);
   padding: 10px;

@@ -8,6 +8,7 @@ const TodoItemDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [newTitle, setNewTitle] = useState("");
+  const [newCompleted, setNewCompleted] = useState("");
   const { data, loading, error } = useQuery(GET_TODO, { variables: { id } });
   const [updateTodo] = useMutation(UPDATE_TODO);
 
@@ -19,18 +20,26 @@ const TodoItemDetails = () => {
   const { title, completed } = data.getTodo;
 
   const handleUpdateTodo = () => {
-    if (newTitle.trim() === "") {
-      return;
-    }
+    // Ensure valid title and completed status
+    const variables = {
+      input: {
+        id,
+        title: newTitle.trim() !== "" ? newTitle : title,
+        completed: newCompleted !== "" ? newCompleted === "Yes" : completed,
+      },
+    };
+
+    console.log("Updating Todo with variables:", variables);
+
     updateTodo({
-      variables: { id, title: newTitle },
+      variables,
       optimisticResponse: {
         __typename: "Mutation",
         updateTodo: {
           __typename: "Todo",
           id,
-          title: newTitle,
-          completed,
+          title: variables.input.title,
+          completed: variables.input.completed,
         },
       },
       update: (cache, { data: { updateTodo } }) => {
@@ -40,17 +49,27 @@ const TodoItemDetails = () => {
             title() {
               return updateTodo.title;
             },
+            completed() {
+              return updateTodo.completed;
+            },
           },
         });
       },
-    });
-    setNewTitle("");
+    })
+      .then((response) => {
+        console.log("Update response:", response);
+        setNewTitle("");
+        setNewCompleted("");
+      })
+      .catch((err) => {
+        console.error("Update error:", err);
+      });
   };
 
   return (
     <div>
+      <h2 className="h2">Todo Details</h2>
       <div className="todo-details-container">
-        <h2 className="h2">Todo Details</h2>
         <div className="todo-details">
           <p>
             <strong>ID:</strong> {id}
@@ -59,7 +78,17 @@ const TodoItemDetails = () => {
             <strong>Title:</strong> {title}
           </p>
           <p>
-            <strong>Completed:</strong> {completed ? "Yes" : "No"}
+            <strong>Completed:</strong>
+            <select
+              value={
+                newCompleted !== "" ? newCompleted : completed ? "Yes" : "No"
+              }
+              onChange={(e) => setNewCompleted(e.target.value)}
+              className="update-option"
+            >
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+            </select>
           </p>
         </div>
         <div className="new-title-form">
