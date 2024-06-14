@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import TodoForm from "./components/TodoForm";
 import TodoList from "./components/TodoList";
 import TodoItemDetails from "./components/TodoItemDetails";
+import TodoSearchForm from "./components/TodoSearchForm";
 import { useQuery, useSubscription } from "@apollo/client";
 import { GET_TODOS, TODO_CREATED, TODO_UPDATED } from "./graphql";
 
@@ -43,19 +44,27 @@ const App = () => {
 
   return (
     <Router>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <>
-              <TodoForm setErrorMessage={setErrorMessage} />
-              {errorMessage && <p className="error-message">{errorMessage}</p>}
-              <TodoList todos={todos} />
-            </>
-          }
-        />
-        <Route path="/todos/:id" element={<TodoItemDetails />} />
-      </Routes>
+      <div className="todo-container">
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <>
+                <TodoForm setErrorMessage={setErrorMessage} />
+                {errorMessage && (
+                  <p className="error-message">{errorMessage}</p>
+                )}
+                <TodoList todos={todos} />
+                <Link to="/search" className="todo-button search-todos-button">
+                  Search Todos
+                </Link>
+              </>
+            }
+          />
+          <Route path="/todos/:id" element={<TodoItemDetails />} />
+          <Route path="/search" element={<TodoSearchForm />} />
+        </Routes>
+      </div>
     </Router>
   );
 };

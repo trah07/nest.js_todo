@@ -1,0 +1,13 @@
+.container {
+    max-width: 1000px;  /* Increase the max-width */
+    width: 100%;
+    padding: 0 20px;  /* Reduce padding on the sides */
+    background-color: #f5f5f5;
+  }
+  
+  /* Heading styling */
+  h1 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
