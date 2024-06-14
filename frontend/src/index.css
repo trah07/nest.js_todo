@@ -148,13 +148,8 @@ h1 {
   color: red;
   text-align: center;
   margin-top: 10px;
+  margin-bottom: 10px;
   font-weight: bold;
-  padding: 10px;
-  background-color: #ffe5e5;
-  border: 1px solid red;
-  border-radius: 5px;
-  width: 100%;
-  max-width: 500px;
 }
 
 .todo-details-container {
