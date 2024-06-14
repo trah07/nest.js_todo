@@ -1,5 +1,6 @@
 .todo-list {
-  max-width: 800px;
+  max-width: 600px;
+  min-width: 600px;
   width: 100%;
   margin: 10px auto;
   padding: 20px;
@@ -24,10 +25,16 @@
 .todo-list li .todo-content {
   display: flex;
   align-items: center;
+  flex-grow: 1;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: pre-wrap;
 }
 
 .todo-list li .todo-content span {
   margin-left: 10px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .todo-list li.completed .todo-content span {
@@ -45,9 +52,10 @@
 }
 
 .todo-details-container {
-  max-width: 800px;
+  max-width: 600px;
+  min-width: 600px;
   width: 100%;
-  margin: 20px auto;
+  margin: 10px auto;
   padding: 20px;
   background-color: #fff;
   border-radius: 5px;

@@ -9,6 +9,10 @@ const TodoSearchForm = () => {
   const { data, loading, error } = useQuery(GET_TODOS);
   const navigate = useNavigate();
 
+  const handleSearch = (event) => {
+    event.preventDefault();
+  };
+
   const filteredTodos = data?.getTodos.filter((todo) =>
     todo.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -17,7 +21,7 @@ const TodoSearchForm = () => {
 
   return (
     <div className="todo-search-container">
-      <form className="search-form">
+      <form className="search-form" onSubmit={handleSearch}>
         <input
           type="text"
           value={searchTerm}
@@ -25,11 +29,11 @@ const TodoSearchForm = () => {
           placeholder="Search by title"
           className="search-input"
         />
-        <button type="button" className="search-button">
+        <button type="submit" className="search-button">
           Search
         </button>
       </form>
-      <h2 className="h2-text">Search Todos</h2>
+      <h2 className="h2">Search Todos</h2>
       {error && <p className="error-message">Error! :( {error.message}</p>}
       <TodoSearchList todos={filteredTodos} />
       <button className="todo-button back-button" onClick={() => navigate("/")}>

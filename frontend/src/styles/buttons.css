@@ -28,15 +28,15 @@
 }
 
 .delete-button:hover {
-  background-color: #5d1700;
+  background-color: #822000;
 }
 
 .details-button {
-  background-color: #008cba;
+  background-color: #008CBA;
 }
 
 .details-button:hover {
-  background-color: #00465d;
+  background-color: #00546f;
 }
 
 .update-button {
@@ -86,7 +86,7 @@
 }
 
 .search-todos-button {
-  margin-top: 10px;
+  margin-top: 20px; /* Add margin-top for spacing */
   display: inline-block;
   background-color: #4CAF50;
   color: white;
