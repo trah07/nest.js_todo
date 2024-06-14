@@ -48,29 +48,36 @@ const TodoItemDetails = () => {
   };
 
   return (
-    <div className="todo-details-container">
-      <h2>Todo Details</h2>
-      <div className="todo-details">
-        <p>
-          <strong>ID:</strong> {id}
-        </p>
-        <p>
-          <strong>Title:</strong> {title}
-        </p>
-        <p>
-          <strong>Completed:</strong> {completed ? "Yes" : "No"}
-        </p>
+    <div>
+      <div className="todo-details-container">
+        <h2 className="h2">Todo Details</h2>
+        <div className="todo-details">
+          <p>
+            <strong>ID:</strong> {id}
+          </p>
+          <p>
+            <strong>Title:</strong> {title}
+          </p>
+          <p>
+            <strong>Completed:</strong> {completed ? "Yes" : "No"}
+          </p>
+        </div>
+        <div className="new-title-form">
+          <input
+            type="text"
+            value={newTitle}
+            onChange={(e) => setNewTitle(e.target.value)}
+            placeholder="New title"
+            className="update-input"
+          />
+          <button
+            className="todo-button update-button"
+            onClick={handleUpdateTodo}
+          >
+            Update
+          </button>
+        </div>
       </div>
-      <input
-        type="text"
-        value={newTitle}
-        onChange={(e) => setNewTitle(e.target.value)}
-        placeholder="New title"
-        className="update-input"
-      />
-      <button className="todo-button update-button" onClick={handleUpdateTodo}>
-        Update
-      </button>
       <button className="todo-button back-button" onClick={() => navigate("/")}>
         Back
       </button>

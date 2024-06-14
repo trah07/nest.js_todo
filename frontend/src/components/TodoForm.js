@@ -49,6 +49,7 @@ function TodoForm({ setErrorMessage }) {
         />
         <button type="submit">Add</button>
       </form>
+      <h2 className="h2">Todos</h2>
     </div>
   );
 }

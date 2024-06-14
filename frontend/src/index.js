@@ -1,6 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./index.css";
+import "./styles/global.css";
+import "./styles/layout.css";
+import "./styles/form.css";
+import "./styles/list.css";
+import "./styles/buttons.css";
+import "./styles/messages.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import {
