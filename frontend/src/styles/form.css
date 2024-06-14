@@ -20,6 +20,11 @@
     margin-right: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   }
+
+  .new-task-text {
+    color: #4CAF50;
+    margin-top: 10px;
+  }
   
   .update-input {
     width: calc(100% - 20px);

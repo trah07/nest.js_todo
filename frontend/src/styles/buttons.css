@@ -86,7 +86,7 @@
 }
 
 .search-todos-button {
-  margin-top: 20px; /* Add margin-top for spacing */
+  margin-top: 10px;
   display: inline-block;
   background-color: #4CAF50;
   color: white;

@@ -44,7 +44,7 @@ const App = () => {
 
   return (
     <Router>
-      <div className="todo-container">
+      <div className="container">
         <Routes>
           <Route
             path="/"

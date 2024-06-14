@@ -49,7 +49,7 @@ const TodoItemDetails = () => {
 
   return (
     <div className="todo-details-container">
-      <h2>Todo Details</h2>
+      <h2 className="h2">Todo Details</h2>
       <div className="todo-details">
         <p>
           <strong>ID:</strong> {id}

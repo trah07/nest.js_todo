@@ -29,7 +29,7 @@ const TodoSearchForm = () => {
           Search
         </button>
       </form>
-      <h2>Search Todos</h2>
+      <h2 className="h2-text">Search Todos</h2>
       {error && <p className="error-message">Error! :( {error.message}</p>}
       <TodoSearchList todos={filteredTodos} />
       <button className="todo-button back-button" onClick={() => navigate("/")}>
