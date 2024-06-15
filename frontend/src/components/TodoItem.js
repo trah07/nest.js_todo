@@ -3,7 +3,7 @@ import { useMutation } from "@apollo/client";
 import { Link } from "react-router-dom";
 import { TOGGLE_TODO_COMPLETED, DELETE_TODO } from "../graphql";
 
-const TodoItem = ({ todo }) => {
+const TodoItem = ({ todo, setNotification }) => {
   const [toggleTodoCompleted] = useMutation(TOGGLE_TODO_COMPLETED);
   const [deleteTodo] = useMutation(DELETE_TODO);
 
@@ -36,7 +36,17 @@ const TodoItem = ({ todo }) => {
           },
         });
       },
-    });
+    })
+      .then(() => {
+        setNotification({
+          message: "Task deleted successfully",
+          type: "success",
+        });
+      })
+      .catch((err) => {
+        console.error("Error deleting todo:", err);
+        setNotification({ message: "Failed to delete task", type: "error" });
+      });
   };
 
   return (
