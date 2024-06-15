@@ -9,6 +9,11 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
+.todo-list ul {
+  list-style-type: none;
+  padding: 0;
+}
+
 .todo-list li {
   display: flex;
   align-items: center;
@@ -16,6 +21,8 @@
   padding: 15px;
   border-bottom: 1px solid #eee;
   position: relative;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .todo-list li:last-child {
@@ -29,12 +36,16 @@
   word-wrap: break-word;
   overflow-wrap: break-word;
   white-space: pre-wrap;
+  overflow: hidden;
 }
 
 .todo-list li .todo-content span {
   margin-left: 10px;
+  flex-grow: 1;
   word-wrap: break-word;
   overflow-wrap: break-word;
+  white-space: pre-wrap;
+  overflow: hidden;
 }
 
 .todo-list li.completed .todo-content span {
@@ -69,6 +80,9 @@
 .todo-details p {
   margin: 10px 0;
   font-size: 16px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: pre-wrap;
 }
 
 .todo-details strong {
