@@ -30,11 +30,6 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.new-task-text {
-  color: #4CAF50;
-  margin-top: 10px;
-}
-
 .update-option {
   margin-left: 10px;
   width: auto;

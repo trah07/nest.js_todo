@@ -20,7 +20,6 @@ const TodoItemDetails = () => {
   const { title, completed } = data.getTodo;
 
   const handleUpdateTodo = () => {
-    // Ensure valid title and completed status
     const variables = {
       input: {
         id,
