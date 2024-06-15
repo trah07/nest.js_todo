@@ -6,6 +6,7 @@ import "./styles/form.css";
 import "./styles/list.css";
 import "./styles/buttons.css";
 import "./styles/messages.css";
+import "./styles/notification.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import {

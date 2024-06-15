@@ -3,18 +3,20 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useQuery, useMutation } from "@apollo/client";
 import { GET_TODO } from "../graphql/queries";
 import { UPDATE_TODO } from "../graphql/mutations";
+import Notification from "./Notification";
 
 const TodoItemDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [newTitle, setNewTitle] = useState("");
   const [newCompleted, setNewCompleted] = useState("");
+  const [notification, setNotification] = useState({ message: "", type: "" });
+
   const { data, loading, error } = useQuery(GET_TODO, { variables: { id } });
   const [updateTodo] = useMutation(UPDATE_TODO);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error! :( {error.message}</p>;
-
   if (!data || !data.getTodo) return <p>No Todo found.</p>;
 
   const { title, completed } = data.getTodo;
@@ -23,7 +25,7 @@ const TodoItemDetails = () => {
     const variables = {
       input: {
         id,
-        title: newTitle.trim() !== "" ? newTitle : title,
+        title: newTitle.trim() || title,
         completed: newCompleted !== "" ? newCompleted === "Yes" : completed,
       },
     };
@@ -59,15 +61,31 @@ const TodoItemDetails = () => {
         console.log("Update response:", response);
         setNewTitle("");
         setNewCompleted("");
+        setNotification({
+          message: "Changes were successful",
+          type: "success",
+        });
       })
       .catch((err) => {
         console.error("Update error:", err);
+        setNotification({
+          message: "Changes were not successful",
+          type: "error",
+        });
       });
   };
+
+  const handleCloseNotification = () =>
+    setNotification({ message: "", type: "" });
 
   return (
     <div>
       <h2 className="h2">Todo Details</h2>
+      <Notification
+        message={notification.message}
+        type={notification.type}
+        onClose={handleCloseNotification}
+      />
       <div className="todo-details-container">
         <div className="todo-details">
           <p>

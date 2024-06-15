@@ -20,7 +20,7 @@
   margin-bottom: 10px;
 }
 
-.todo-form input[type="text"], .search-input {
+.todo-form input[type="text"], .search-input, .todo-input {
   width: 300px;
   padding: 10px;
   font-size: 16px;
@@ -46,4 +46,9 @@
   margin-top: 10px;
   border-radius: 5px;
   border: 1px solid #ccc;
+}
+
+.error-message {
+  color: #F44336;
+  margin-top: 10px;
 }
