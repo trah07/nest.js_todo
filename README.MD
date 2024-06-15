@@ -1,6 +1,6 @@
 # TODO APP with Nest.js and React.js
 
-A simple Todo App to create, manage, and view tasks. The app includes features to create tasks, check/uncheck them, delete, and view task details.
+A simple Todo App to create, manage, and view tasks. The app includes features to create tasks, check/uncheck them, delete, view task details and update task details.
 
 ## Getting Started
 
@@ -51,6 +51,7 @@ A simple Todo App to create, manage, and view tasks. The app includes features t
 - **Check/Uncheck Tasks**: Mark tasks as complete or incomplete.
 - **Delete Tasks**: Remove tasks from your list.
 - **View Task Details**: Click on a task to see more information.
+- **Update Task Details**: Updates the title or completion status of tasks.
 
 ## Technologies Used
 
