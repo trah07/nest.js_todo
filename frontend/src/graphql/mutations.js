@@ -29,8 +29,8 @@ export const DELETE_TODO = gql`
 `;
 
 export const UPDATE_TODO = gql`
-  mutation UpdateTodo($id: String!, $title: String) {
-    updateTodo(input: { id: $id, title: $title }) {
+  mutation UpdateTodo($input: UpdateTodoInput!) {
+    updateTodo(input: $input) {
       id
       title
       completed

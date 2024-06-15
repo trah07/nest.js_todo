@@ -20,7 +20,7 @@
   margin-bottom: 10px;
 }
 
-.todo-form input[type="text"], .search-input {
+.todo-form input[type="text"], .search-input, .todo-input {
   width: 300px;
   padding: 10px;
   font-size: 16px;
@@ -30,9 +30,13 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.new-task-text {
-  color: #4CAF50;
-  margin-top: 10px;
+.update-option {
+  margin-left: 10px;
+  width: auto;
+  padding: 5px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
 }
 
 .update-input {
@@ -42,4 +46,9 @@
   margin-top: 10px;
   border-radius: 5px;
   border: 1px solid #ccc;
+}
+
+.error-message {
+  color: #F44336;
+  margin-top: 10px;
 }
