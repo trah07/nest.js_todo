@@ -4,12 +4,13 @@ import TodoForm from "./components/TodoForm";
 import TodoList from "./components/TodoList";
 import TodoItemDetails from "./components/TodoItemDetails";
 import TodoSearchForm from "./components/TodoSearchForm";
+import Notification from "./components/Notification";
 import { useQuery, useSubscription } from "@apollo/client";
 import { GET_TODOS, TODO_CREATED, TODO_UPDATED } from "./graphql";
 
 const App = () => {
   const [todos, setTodos] = useState([]);
-  const [errorMessage, setErrorMessage] = useState(null);
+  const [notifications, setNotifications] = useState([]);
 
   const { data, loading, error } = useQuery(GET_TODOS);
   const { data: todoCreated } = useSubscription(TODO_CREATED);
@@ -39,6 +40,12 @@ const App = () => {
     }
   }, [data]);
 
+  const handleCloseNotification = (index) => {
+    setNotifications((prevNotifications) =>
+      prevNotifications.filter((_, i) => i !== index)
+    );
+  };
+
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error! :(</p>;
 
@@ -50,11 +57,8 @@ const App = () => {
             path="/"
             element={
               <>
-                <TodoForm setErrorMessage={setErrorMessage} />
-                {errorMessage && (
-                  <p className="error-message">{errorMessage}</p>
-                )}
-                <TodoList todos={todos} />
+                <TodoForm setNotifications={setNotifications} />
+                <TodoList todos={todos} setNotifications={setNotifications} />
                 <Link to="/search" className="todo-button search-todos-button">
                   Search Todos
                 </Link>
@@ -64,6 +68,10 @@ const App = () => {
           <Route path="/todos/:id" element={<TodoItemDetails />} />
           <Route path="/search" element={<TodoSearchForm />} />
         </Routes>
+        <Notification
+          notifications={notifications}
+          onClose={handleCloseNotification}
+        />
       </div>
     </Router>
   );
