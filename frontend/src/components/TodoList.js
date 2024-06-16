@@ -1,7 +1,7 @@
 import React from "react";
 import TodoItem from "./TodoItem";
 
-const TodoList = ({ todos, setNotification }) => (
+const TodoList = ({ todos, setNotifications }) => (
   <div>
     <h2 className="h2">Todos</h2>
     <div className="todo-list">
@@ -11,7 +11,7 @@ const TodoList = ({ todos, setNotification }) => (
             <TodoItem
               key={todo.id}
               todo={todo}
-              setNotification={setNotification}
+              setNotifications={setNotifications}
             />
           ))}
         </ul>

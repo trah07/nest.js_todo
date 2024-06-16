@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 import { gql, useMutation } from "@apollo/client";
 import { CREATE_TODO } from "../graphql";
-import Notification from "./Notification";
 
-function TodoForm() {
+function TodoForm({ setNotifications }) {
   const [title, setTitle] = useState("");
-  const [notification, setNotification] = useState({ message: "", type: "" });
   const [errorMessage, setErrorMessage] = useState("");
 
   const [createTodo] = useMutation(CREATE_TODO);
@@ -41,19 +39,18 @@ function TodoForm() {
     })
       .then(() => {
         setTitle("");
-        setNotification({
-          message: "New task added successfully",
-          type: "success",
-        });
+        setNotifications((prevNotifications) => [
+          ...prevNotifications,
+          { message: "New task added successfully", type: "success" },
+        ]);
       })
       .catch((err) => {
         console.error("Error creating todo:", err);
-        setNotification({ message: "Failed to add task", type: "error" });
+        setNotifications((prevNotifications) => [
+          ...prevNotifications,
+          { message: "Failed to add task", type: "error" },
+        ]);
       });
-  };
-
-  const handleCloseNotification = () => {
-    setNotification({ message: "", type: "" });
   };
 
   return (
@@ -68,12 +65,6 @@ function TodoForm() {
         />
         <button type="submit">Add</button>
       </form>
-      <Notification
-        message={notification.message}
-        type={notification.type}
-        onClose={handleCloseNotification}
-        duration={3000}
-      />
       {errorMessage && <p className="error-message">{errorMessage}</p>}
     </div>
   );

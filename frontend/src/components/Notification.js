@@ -1,24 +1,30 @@
 import React, { useEffect } from "react";
 
-const Notification = ({ message, type, onClose, duration = 3000 }) => {
+const Notification = ({ notifications, onClose }) => {
   useEffect(() => {
-    if (message) {
-      const timer = setTimeout(() => {
-        onClose();
-      }, duration);
+    notifications.forEach((notification, index) => {
+      if (notification.message) {
+        const timer = setTimeout(() => {
+          onClose(index);
+        }, notification.duration || 3000);
 
-      return () => clearTimeout(timer);
-    }
-  }, [message, duration, onClose]);
+        return () => clearTimeout(timer);
+      }
+    });
+  }, [notifications, onClose]);
 
-  if (!message) return null;
+  if (!notifications.length) return null;
 
   return (
-    <div className={`notification ${type}`}>
-      <p>{message}</p>
-      <button onClick={onClose} className="close-button">
-        X
-      </button>
+    <div className="notification-container">
+      {notifications.map((notification, index) => (
+        <div key={index} className={`notification ${notification.type}`}>
+          <p>{notification.message}</p>
+          <button onClick={() => onClose(index)} className="close-button">
+            X
+          </button>
+        </div>
+      ))}
     </div>
   );
 };

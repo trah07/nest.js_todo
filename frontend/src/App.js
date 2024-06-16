@@ -10,8 +10,7 @@ import { GET_TODOS, TODO_CREATED, TODO_UPDATED } from "./graphql";
 
 const App = () => {
   const [todos, setTodos] = useState([]);
-  const [errorMessage, setErrorMessage] = useState(null);
-  const [notification, setNotification] = useState({ message: "", type: "" });
+  const [notifications, setNotifications] = useState([]);
 
   const { data, loading, error } = useQuery(GET_TODOS);
   const { data: todoCreated } = useSubscription(TODO_CREATED);
@@ -41,8 +40,10 @@ const App = () => {
     }
   }, [data]);
 
-  const handleCloseNotification = () => {
-    setNotification({ message: "", type: "" });
+  const handleCloseNotification = (index) => {
+    setNotifications((prevNotifications) =>
+      prevNotifications.filter((_, i) => i !== index)
+    );
   };
 
   if (loading) return <p>Loading...</p>;
@@ -56,11 +57,8 @@ const App = () => {
             path="/"
             element={
               <>
-                <TodoForm setErrorMessage={setErrorMessage} />
-                {errorMessage && (
-                  <p className="error-message">{errorMessage}</p>
-                )}
-                <TodoList todos={todos} setNotification={setNotification} />
+                <TodoForm setNotifications={setNotifications} />
+                <TodoList todos={todos} setNotifications={setNotifications} />
                 <Link to="/search" className="todo-button search-todos-button">
                   Search Todos
                 </Link>
@@ -71,10 +69,8 @@ const App = () => {
           <Route path="/search" element={<TodoSearchForm />} />
         </Routes>
         <Notification
-          message={notification.message}
-          type={notification.type}
+          notifications={notifications}
           onClose={handleCloseNotification}
-          duration={3000}
         />
       </div>
     </Router>
