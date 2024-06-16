@@ -74,6 +74,12 @@ const TodoItemDetails = ({ setNotifications }) => {
       });
   };
 
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter") {
+      handleUpdateTodo();
+    }
+  };
+
   return (
     <div>
       <h2 className="h2">Todo Details</h2>
@@ -105,6 +111,7 @@ const TodoItemDetails = ({ setNotifications }) => {
             type="text"
             value={newTitle}
             onChange={(e) => setNewTitle(e.target.value)}
+            onKeyPress={handleKeyPress}
             placeholder="New title"
             className="update-input"
           />
