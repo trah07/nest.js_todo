@@ -65,7 +65,10 @@ const App = () => {
               </>
             }
           />
-          <Route path="/todos/:id" element={<TodoItemDetails />} />
+          <Route
+            path="/todos/:id"
+            element={<TodoItemDetails setNotifications={setNotifications} />}
+          />
           <Route path="/search" element={<TodoSearchForm />} />
         </Routes>
         <Notification

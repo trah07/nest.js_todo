@@ -5,12 +5,11 @@ import { GET_TODO } from "../graphql/queries";
 import { UPDATE_TODO } from "../graphql/mutations";
 import Notification from "./Notification";
 
-const TodoItemDetails = () => {
+const TodoItemDetails = ({ setNotifications }) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [newTitle, setNewTitle] = useState("");
   const [newCompleted, setNewCompleted] = useState("");
-  const [notification, setNotification] = useState({ message: "", type: "" });
 
   const { data, loading, error } = useQuery(GET_TODO, { variables: { id } });
   const [updateTodo] = useMutation(UPDATE_TODO);
@@ -61,31 +60,24 @@ const TodoItemDetails = () => {
         console.log("Update response:", response);
         setNewTitle("");
         setNewCompleted("");
-        setNotification({
-          message: "Changes were successful",
-          type: "success",
-        });
+        setNotifications((prevNotifications) => [
+          ...prevNotifications,
+          { message: "Changes were successful", type: "success" },
+        ]);
       })
       .catch((err) => {
         console.error("Update error:", err);
-        setNotification({
-          message: "Changes were not successful",
-          type: "error",
-        });
+        setNotifications((prevNotifications) => [
+          ...prevNotifications,
+          { message: "Changes were not successful", type: "error" },
+        ]);
       });
   };
-
-  const handleCloseNotification = () =>
-    setNotification({ message: "", type: "" });
 
   return (
     <div>
       <h2 className="h2">Todo Details</h2>
-      <Notification
-        message={notification.message}
-        type={notification.type}
-        onClose={handleCloseNotification}
-      />
+      <Notification notifications={[]} />
       <div className="todo-details-container">
         <div className="todo-details">
           <p>

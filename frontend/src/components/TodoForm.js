@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { gql, useMutation } from "@apollo/client";
 import { CREATE_TODO } from "../graphql";
 
-function TodoForm({ setNotifications }) {
+const TodoForm = ({ setNotifications }) => {
   const [title, setTitle] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -68,6 +68,6 @@ function TodoForm({ setNotifications }) {
       {errorMessage && <p className="error-message">{errorMessage}</p>}
     </div>
   );
-}
+};
 
 export default TodoForm;
