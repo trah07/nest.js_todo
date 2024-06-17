@@ -1,6 +1,4 @@
 import { Module } from "@nestjs/common";
-import { AppController } from "./app.controller";
-import { AppService } from "./app.service";
 import { TodosModule } from "./todos/todos.module";
 import { PubSub } from "graphql-subscriptions";
 import { GraphQLModule } from "@nestjs/graphql";
@@ -16,13 +14,13 @@ const pubSub = new PubSub();
       autoSchemaFile: true,
       context: ({ req, res }) => ({ req, res, pubSub }),
       subscriptions: {
-        "subscriptions-transport-ws": {
+        "graphql-ws": {
           path: "/graphql",
         },
       },
     }),
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [{ provide: "PUB_SUB", useValue: pubSub }],
 })
 export class AppModule {}

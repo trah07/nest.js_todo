@@ -1,6 +1,6 @@
 import { Query, Resolver, Args } from "@nestjs/graphql";
-import { Todo } from "./todo.entity";
-import { TodosService } from "./todos.service";
+import { Todo } from "../../model/todo.entity";
+import { TodosService } from "../todos.service";
 
 @Resolver(() => Todo)
 export class TodosQueryResolver {

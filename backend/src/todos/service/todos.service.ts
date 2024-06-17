@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
-import { Todo } from "./todo.entity";
-import { CreateTodoInput, UpdateTodoInput } from "./todo.dto";
+import { Todo } from "../model/todo.entity";
+import { CreateTodoInput, UpdateTodoInput } from "../model/todo.dto";
 
 @Injectable()
 export class TodosService {

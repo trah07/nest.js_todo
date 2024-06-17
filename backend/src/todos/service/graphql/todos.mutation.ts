@@ -1,8 +1,8 @@
 import { Mutation, Resolver, Args } from "@nestjs/graphql";
-import { Todo } from "./todo.entity";
-import { CreateTodoInput, UpdateTodoInput } from "./todo.dto";
-import { TodosService } from "./todos.service";
-import { pubSub } from "./pubsub";
+import { Todo } from "../../model/todo.entity";
+import { CreateTodoInput, UpdateTodoInput } from "../../model/todo.dto";
+import { TodosService } from "../todos.service";
+import { pubSub } from "../pubsub";
 
 @Resolver(() => Todo)
 export class TodosMutationResolver {

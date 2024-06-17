@@ -1,5 +1,5 @@
 import { Subscription, Resolver } from "@nestjs/graphql";
-import { Todo } from "./todo.entity";
+import { Todo } from "../model/todo.entity";
 import { pubSub } from "./pubsub";
 
 @Resolver(() => Todo)
